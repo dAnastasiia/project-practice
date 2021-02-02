@@ -1,0 +1,43 @@
+footer {
+  background-color: $footer-color;
+}
+
+.footer {
+  width: 100%;
+  padding: 30px 25px;
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+
+  @include for-size(tablet-landscape) {
+    padding-right: 140px;
+    padding-left: 140px;
+  }
+
+  @include for-size(desktop) {
+    padding-right: 270px;
+    padding-left: 270px;
+  }
+
+  &__text {
+    margin: 0;
+
+    display: inline-block;
+    color: $grey;
+
+    &:first-child {
+      margin-bottom: 10px;
+
+      @include for-size(tablet-landscape) {
+        margin: 0;
+      }
+    }
+  }
+
+  &__icon {
+    vertical-align: middle;
+    fill: $accent;
+    margin: 0px 3px;
+  }
+}

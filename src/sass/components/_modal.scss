@@ -1,38 +1,9 @@
 //DOnt forget buttons in headere
-.btn {
-  background-color: inherit;
-  color: $white;
-  font-family: Roboto;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 1.33px;
-  display: inline;
-  align-items: center;
-  text-align: center;
-  text-transform: uppercase;
-  margin-left: 15px;
-
-  padding: 20px 38px;
-  border: 1px solid #ffffff;
-  box-sizing: border-box;
-  border-radius: 5px;
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: $accent;
-    border: 1px solid $accent;
-    outline: inherit;
-  }
-  //   .activ {
-  //     background-color: $accent;
-  //   }
-}
 
 .btn-modal {
   margin: 0;
   background-color: inherit;
   color: $black;
-  min-width: 136px;
   padding: 20px 10px;
   border: 1px solid $black;
 
@@ -143,12 +114,4 @@
       justify-content: start;
     }
   }
-}
-
-.vote-accent {
-  color: $white;
-  background: $accent;
-  border-radius: 5px;
-  border: 5px solid inherit;
-  padding: 1px 10px;
 }

@@ -24,11 +24,16 @@
 
   &__info {
     display: flex;
+    align-items: center;
     color: $accent;
   }
 
   &__year {
     display: inline-flex;
+  }
+
+  &__rate {
+    margin-left: 10px;
   }
 
   &__year::before {
@@ -85,4 +90,12 @@
       margin-bottom: 30px;
     }
   }
+}
+
+.vote-accent {
+  color: $white;
+  background: $accent;
+  border-radius: 5px;
+  border: 5px solid inherit;
+  padding: 1px 10px;
 }

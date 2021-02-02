@@ -5,25 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Project</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap"
       rel="stylesheet"
     />
   </head>
 
   <body>
     <header>
-      <div class="banner">
+      <div class="banner banner-home">
         <div class="container home-header">
           <div class="menu">
             <div class="logo">
-              <svg width="20px" height="20px" class="logo__icon">
+              <svg width="24px" height="24px" class="logo__icon">
                 <use href="./images/sprite.svg#icon-film"></use>
               </svg>
               <h1 class="logo__title">Filmoteka</h1>
             </div>
 
             <ul class="navigation">
+              <!-- add class active on js -->
               <li class="navigation__item">home</li>
               <li class="navigation__item">my library</li>
             </ul>
@@ -37,16 +39,49 @@
               name="query"
             />
             <button type="submit" class="form-search__btn">
-              <svg class="input-icon" width="12px" height="12px">
+              <svg class="form-search__input-icon" width="12px" height="12px">
                 <use href="./images/sprite.svg#icon-search"></use>
               </svg>
             </button>
           </form>
+
+          <p class="form-search--error">
+            Search result not successful. Enter the correct movie name and
+            repeat
+          </p>
+        </div>
+      </div>
+
+      <div class="banner banner-library">
+        <div class="container library-header">
+          <div class="menu">
+            <div class="logo">
+              <svg width="24px" height="24px" class="logo__icon">
+                <use href="./images/sprite.svg#icon-film"></use>
+              </svg>
+              <h1 class="logo__title">Filmoteka</h1>
+            </div>
+
+            <ul class="navigation">
+              <!-- add class active on js -->
+              <li class="navigation__item">home</li>
+              <li class="navigation__item">my library</li>
+            </ul>
+          </div>
+
+          <div class="header__content-button">
+            <button class="btn btn-header" data-action="show-watched">
+              Watched
+            </button>
+            <button class="btn btn-header" data-action="show-queue">
+              Queue
+            </button>
+          </div>
         </div>
       </div>
     </header>
 
-    <!-- <main>
+    <main>
       <div class="container">
         <ul class="movies-list">
           <li class="movie-card">
@@ -59,6 +94,7 @@
             <ul class="movie-card__info">
               <li class="movie-card__genre">Genres</li>
               <li class="movie-card__year">Year</li>
+              <li class="movie-card__rate vote-accent">Rate</li>
             </ul>
           </li>
 
@@ -72,6 +108,22 @@
             <ul class="movie-card__info">
               <li class="movie-card__genre">Genres</li>
               <li class="movie-card__year">Year</li>
+              <li class="movie-card__rate vote-accent">Rate</li>
+            </ul>
+            
+          </li>
+
+          <li class="movie-card">
+            <img
+              class="movie-card__poster"
+              src="./images/poster1.jpg"
+              alt="Poster"
+            />
+            <h3 class="movie-card__title">Title</h3>
+            <ul class="movie-card__info">
+              <li class="movie-card__genre">Genres</li>
+              <li class="movie-card__year">Year</li>
+              <li class="movie-card__rate vote-accent">Rate</li>
             </ul>
           </li>
 
@@ -85,6 +137,7 @@
             <ul class="movie-card__info">
               <li class="movie-card__genre">Genres</li>
               <li class="movie-card__year">Year</li>
+              <li class="movie-card__rate vote-accent">Rate</li>
             </ul>
           </li>
 
@@ -98,6 +151,7 @@
             <ul class="movie-card__info">
               <li class="movie-card__genre">Genres</li>
               <li class="movie-card__year">Year</li>
+              <li class="movie-card__rate vote-accent">Rate</li>
             </ul>
           </li>
 
@@ -111,19 +165,7 @@
             <ul class="movie-card__info">
               <li class="movie-card__genre">Genres</li>
               <li class="movie-card__year">Year</li>
-            </ul>
-          </li>
-
-          <li class="movie-card">
-            <img
-              class="movie-card__poster"
-              src="./images/poster1.jpg"
-              alt="Poster"
-            />
-            <h3 class="movie-card__title">Title</h3>
-            <ul class="movie-card__info">
-              <li class="movie-card__genre">Genres</li>
-              <li class="movie-card__year">Year</li>
+              <li class="movie-card__rate vote-accent">Rate</li>
             </ul>
           </li>
         </ul>
@@ -174,8 +216,17 @@
             </div>
         </div>
       </div>
-    </main> -->
+    </main>
 
-    <!-- <footer></footer> -->
+    <footer>
+      <div class="container footer">
+        <p class="footer__text">© 2020 | All Rights Reserved |</p>
+        <p class="footer__text">Developed with by</p>
+        <svg class="footer__icon" width="12px" height="14px">
+          <use href="./images/sprite.svg#icon-love"></use>
+        </svg>
+        <p class="footer__text">GoIT Students</p>
+      </div>
+    </footer>
   </body>
 </html>

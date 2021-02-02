@@ -19,6 +19,10 @@ ul {
   list-style: none;
 }
 
+a {
+  text-decoration: none;
+}
+
 img {
   display: block;
   max-width: 100%;
@@ -30,7 +34,7 @@ img {
   padding-top: 20px;
   padding-right: 20px;
   padding-left: 20px;
-  padding-bottom: 0;
+  padding-bottom: 40px;
 
   margin-left: auto;
   margin-right: auto;
@@ -44,6 +48,7 @@ img {
     padding-top: 60px;
     padding-right: 75px;
     padding-left: 75px;
+    padding-bottom: 50px;
   }
 
   @include for-size(desktop) {
@@ -51,4 +56,35 @@ img {
     padding-right: 70px;
     padding-left: 70px;
   }
+}
+
+.btn {
+  background-color: inherit;
+  min-width: 136px;
+  color: $white;
+  font-family: Roboto;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33px;
+  display: inline;
+  align-items: center;
+  text-align: center;
+  text-transform: uppercase;
+
+  padding: 20px 38px;
+  border: 1px solid #ffffff;
+  // box-sizing: border-box;
+  border-radius: 5px;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background-color: $accent;
+    border: 1px solid $accent;
+    outline: inherit;
+  }
+
+  //   .activ {
+  //     background-color: $accent;
+  //   }
 }
