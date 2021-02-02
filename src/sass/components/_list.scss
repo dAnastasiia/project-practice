@@ -1,0 +1,88 @@
+.movies-list {
+  @include for-size(tablet-landscape) {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
+.movie-card {
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  letter-spacing: 0.06em;
+
+  &__poster {
+    width: 100%;
+  }
+
+  &__title {
+    margin: 10px 0 5px;
+    text-transform: uppercase;
+    color: $black;
+  }
+
+  &__info {
+    display: flex;
+    color: $accent;
+  }
+
+  &__year {
+    display: inline-flex;
+  }
+
+  &__year::before {
+    content: ' ';
+    display: block;
+    width: 1px;
+    height: 12px;
+    background-color: $accent;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+    @include for-size(tablet-landscape) {
+      margin-bottom: 0;
+    }
+  }
+
+  @include for-size(tablet-landscape) {
+    width: calc((100% - 30px) / 2);
+  }
+
+  &:not(:nth-child(2n)) {
+    @include for-size(tablet-landscape) {
+      margin-right: 30px;
+    }
+    @include for-size(desktop) {
+      margin-right: 0;
+    }
+  }
+
+  &:not(:nth-last-child(-n + 2)) {
+    @include for-size(tablet-landscape) {
+      margin-bottom: 30px;
+    }
+    @include for-size(desktop) {
+      margin-bottom: 0;
+    }
+  }
+
+  @include for-size(desktop) {
+    width: calc((100% - 30px * 2) / 3);
+  }
+
+  &:not(:nth-child(3n)) {
+    @include for-size(desktop) {
+      margin-right: 30px;
+    }
+  }
+
+  &:not(:nth-last-child(-n + 3)) {
+    @include for-size(desktop) {
+      margin-bottom: 30px;
+    }
+  }
+}

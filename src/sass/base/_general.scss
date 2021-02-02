@@ -1,0 +1,54 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  padding-top: 20px;
+  padding-right: 20px;
+  padding-left: 20px;
+  padding-bottom: 0;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  @include for-size(tablet-portrait) {
+    width: 320px;
+  }
+
+  @include for-size(tablet-landscape) {
+    width: 768px;
+    padding-top: 60px;
+    padding-right: 75px;
+    padding-left: 75px;
+  }
+
+  @include for-size(desktop) {
+    width: 1024px;
+    padding-right: 70px;
+    padding-left: 70px;
+  }
+}

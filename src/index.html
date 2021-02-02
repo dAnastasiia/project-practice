@@ -5,41 +5,177 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Project</title>
-
-    <!-- Don't forget to delete this style tag. -->
-    <style>
-      body {
-        min-height: 100vh;
-        margin: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .intro {
-        text-align: center;
-      }
-
-      .intro h1 {
-        margin-top: 0;
-        font-weight: 500;
-        font-size: 40px;
-      }
-
-      .intro img {
-        display: block;
-        max-width: 100%;
-        height: auto;
-      }
-    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
 
   <body>
-    <article class="intro">
-      <h1>Webpack starter kit</h1>
+    <header>
+      <div class="banner">
+        <div class="container home-header">
+          <div class="menu">
+            <div class="logo">
+              <svg width="20px" height="20px" class="logo__icon">
+                <use href="./images/sprite.svg#icon-film"></use>
+              </svg>
+              <h1 class="logo__title">Filmoteka</h1>
+            </div>
 
-      <!-- HTML image reference example. -->
-      <img src="./images/intro.png" alt="" width="640" />
-    </article>
+            <ul class="navigation">
+              <li class="navigation__item">home</li>
+              <li class="navigation__item">my library</li>
+            </ul>
+          </div>
+
+          <form class="form-search">
+            <input
+              class="form-search__input"
+              placeholder=" Поиск фильмов"
+              id="input"
+              name="query"
+            />
+            <button type="submit" class="form-search__btn">
+              <svg class="input-icon" width="12px" height="12px">
+                <use href="./images/sprite.svg#icon-search"></use>
+              </svg>
+            </button>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <!-- <main>
+      <div class="container">
+        <ul class="movies-list">
+          <li class="movie-card">
+            <img
+              class="movie-card__poster"
+              src="./images/poster1.jpg"
+              alt="Poster"
+            />
+            <h3 class="movie-card__title">Title</h3>
+            <ul class="movie-card__info">
+              <li class="movie-card__genre">Genres</li>
+              <li class="movie-card__year">Year</li>
+            </ul>
+          </li>
+
+          <li class="movie-card">
+            <img
+              class="movie-card__poster"
+              src="./images/poster1.jpg"
+              alt="Poster"
+            />
+            <h3 class="movie-card__title">Title</h3>
+            <ul class="movie-card__info">
+              <li class="movie-card__genre">Genres</li>
+              <li class="movie-card__year">Year</li>
+            </ul>
+          </li>
+
+          <li class="movie-card">
+            <img
+              class="movie-card__poster"
+              src="./images/poster1.jpg"
+              alt="Poster"
+            />
+            <h3 class="movie-card__title">Title</h3>
+            <ul class="movie-card__info">
+              <li class="movie-card__genre">Genres</li>
+              <li class="movie-card__year">Year</li>
+            </ul>
+          </li>
+
+          <li class="movie-card">
+            <img
+              class="movie-card__poster"
+              src="./images/poster1.jpg"
+              alt="Poster"
+            />
+            <h3 class="movie-card__title">Title</h3>
+            <ul class="movie-card__info">
+              <li class="movie-card__genre">Genres</li>
+              <li class="movie-card__year">Year</li>
+            </ul>
+          </li>
+
+          <li class="movie-card">
+            <img
+              class="movie-card__poster"
+              src="./images/poster1.jpg"
+              alt="Poster"
+            />
+            <h3 class="movie-card__title">Title</h3>
+            <ul class="movie-card__info">
+              <li class="movie-card__genre">Genres</li>
+              <li class="movie-card__year">Year</li>
+            </ul>
+          </li>
+
+          <li class="movie-card">
+            <img
+              class="movie-card__poster"
+              src="./images/poster1.jpg"
+              alt="Poster"
+            />
+            <h3 class="movie-card__title">Title</h3>
+            <ul class="movie-card__info">
+              <li class="movie-card__genre">Genres</li>
+              <li class="movie-card__year">Year</li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="container container-modal">
+        <div class="modal">
+          <div class="modal__poster">
+            <img class="poster" src="./images/poster.jpg" alt="poster" />
+          </div>
+      
+          <div class="modal__content">
+            <h2 class="modal__content-title">film title</h2>
+      
+            <div class="modal__content-info">
+              <ul class="modal__content-info name">
+                <li>Vote / Votes</li>
+                <li>Popularity</li>
+                <li>Original Title</li>
+                <li>Genre</li>
+              </ul>
+      
+              <ul class="modal__content-info value">
+                <li><span class="vote-accent">-Vote-</span> / -Votes-</li>
+                <li>-Popularity-</li>
+                <li class="modal__content-title info">-Original Title-</li>
+                <li>-Genre-</li>
+              </ul>
+            </div>
+      
+            <h3 class="modal__content-title secondary">About</h3>
+            <p class="modal__content-decsription">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum labore non
+              aliquid, debitis totam aperiam accusantium nihil odio aut iste nisi quos
+              deserunt. Illo labore minus perferendis sint, quam ad repellendus quasi
+              vero inventore. Ut iusto quos quisquam perferendis cupiditate eveniet
+              rem dolorum tempore repellat ipsam ducimus repellendus delectus
+              molestiae facere magni ipsum, dolores odio aperiam, vero voluptatem quam
+              corporis iste tenetur voluptas. Nam consequuntur perspiciatis, eligendi
+              laboriosam cumque voluptate qua explicabo alias quibusdam provident.
+            </p>
+      
+            <div class="modal__content-button">
+              <button class="btn btn-modal" data-action="watched">
+                add to Watched
+              </button>
+              <button class="btn btn-modal" data-action="queue">add to queue</button>
+            </div>
+        </div>
+      </div>
+    </main> -->
+
+    <!-- <footer></footer> -->
   </body>
 </html>
