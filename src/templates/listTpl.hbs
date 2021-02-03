@@ -1,9 +1,10 @@
 <li class="movie-card" data-id="{{id}}">
-    <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}}" />
-    <h3 class="movie-card__title">{{title}}</h3>
+    <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}}"
+        data-id="{{id}}" />
+    <h3 class="movie-card__title" data-id="{{id}}">{{title}}</h3>
     <ul class="movie-card__info">
-        <li class="movie-card__genre">{{#genres}}{{name}} {{/genres}}</li>
-        <li class="movie-card__year">{{release_date}}</li>
-        <li class="movie-card__rate vote vote-accent">{{vote_average}}</li>
+        <li class="movie-card__genre" data-id="{{id}}">{{#genres}}{{name}}{{#unless @last}}, {{/unless}}{{/genres}}</li>
+        <li class="movie-card__year" data-id="{{id}}">{{release_date}}</li>
+        <li class="movie-card__rate vote vote-accent" data-id="{{id}}">{{vote_average}}</li>
     </ul>
 </li>

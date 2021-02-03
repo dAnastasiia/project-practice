@@ -7,7 +7,7 @@ const homeBtn = document.getElementById('home');
 const libraryBtn = document.getElementById('library');
 const queryErr = document.getElementById('query-error');
 
-logoBtn.addEventListener('click', onClickLogo);
+logoBtn.addEventListener('click', onClickHome);
 homeBtn.addEventListener('click', onClickHome);
 libraryBtn.addEventListener('click', onClickLibrary);
 
@@ -42,11 +42,6 @@ const headerFunc = {
     headerContainer.classList.remove('home-header');
   },
 };
-
-function onClickLogo(e) {
-  e.preventDefault();
-  headerFunc.showHome();
-}
 
 function onClickHome(e) {
   e.preventDefault();
