@@ -7,105 +7,82 @@ const refs = {
   libraryHeader: document.querySelector('.banner-library'),
   moviesList: document.querySelector('.movies-list'),
   movieCard: document.querySelector('.modal'),
-  inputValue: document.getElementById('input'),
+  form: document.querySelector('.search-form'),
+  header: document.querySelector('.banner'),
+  headerBtns: document.getElementById('header-buttons'),
+  logoBtn: document.getElementById('logo'),
+  homeBtn: document.getElementById('home'),
+  libraryBtn: document.getElementById('library'),
+  queryErr: document.getElementById('query-error'),
 };
 
-const popularFilms = '/trending/all/day';
-const apiKey = '42c4fa9c05708253e8c2f9a05f447e85';
+const headerContainer = refs.header.querySelector('.container');
 
-function renderList(data) {
-  const markup = listTpl(data);
-  refs.moviesList.insertAdjacentHTML('beforeend', markup);
+refs.logoBtn.addEventListener('click', onClickLogo);
+refs.homeBtn.addEventListener('click', onClickHome);
+refs.libraryBtn.addEventListener('click', onClickLibrary);
+
+function onClickLogo(e) {
+  e.preventDefault();
+
+  refs.header.classList.remove('is-hidden');
+  refs.header.classList.remove('banner-library');
+  refs.header.classList.add('banner-home');
+
+  refs.homeBtn.classList.add('active');
+  refs.libraryBtn.classList.remove('active');
+
+  refs.form.classList.remove('is-hidden');
+  refs.headerBtns.classList.add('is-hidden');
+
+  headerContainer.classList.add('home-header');
+  headerContainer.classList.remove('library-header');
 }
 
-// fetch(`
-// https://api.themoviedb.org/3${popularFilms}?api_key=${apiKey}`)
-//   .then(res => {
-//     return res.json();
-//   })
-//   .then(({ results }) => {
-//     // console.log(results.map(result => result.id));
-//     let arrId = results.map(result => result.id);
-//     console.log(arrId);
-// });
+function onClickHome(e) {
+  e.preventDefault();
 
-// fetch(`
-// https://api.themoviedb.org/3${popularFilms}?api_key=${apiKey}`)
-//   .then(res => {
-//     return res.json();
-//   })
-//   .then(({ results }) => {
-//     // console.log(results.map(result => result.id));
-//     let arrId = results.map(result => result.id);
-//     // const movie_id = arrId[0];
+  refs.header.classList.remove('is-hidden');
+  refs.header.classList.remove('banner-library');
+  refs.header.classList.add('banner-home');
 
-//     return arrId;
-//   })
-//   .then(array => {
-//     // array.length = 9;
-//     array.forEach(arr => {
-//       fetch(
-//         `https://api.themoviedb.org/3/movie/${arr}?api_key=42c4fa9c05708253e8c2f9a05f447e85`,
-//       )
-//         .then(res => {
-//           return res.json();
-//         })
-//         .then(data => {
-//           console.log(data);
-//           renderList(data);
-//         });
-//     });
-// });
+  e.target.classList.add('active');
+  refs.libraryBtn.classList.remove('active');
 
-// const service = {
-//   apiKey: '42c4fa9c05708253e8c2f9a05f447e85',
-//   baseUrl: 'https://api.themoviedb.org/3',
-//   popularFilms: '/trending/all/day',
-//   filmDetails: '/movie/',
-//   //   filmID: '',
-//   searchQuery: '',
-//   page: 1,
+  refs.form.classList.remove('is-hidden');
+  refs.headerBtns.classList.add('is-hidden');
 
-//   fetchPopularFilms() {
-//     const url = `${this.baseUrl}${this.popularFilms}?api_key=${this.apiKey}`;
+  headerContainer.classList.add('home-header');
+  headerContainer.classList.remove('library-header');
+}
 
-//     return fetch(url)
-//       .then(res => res.json())
-//       .then(({ results }) => {
-//         // this.incrementPage();
-//         return results.map(result => result.id);
-//       })
-//       .catch(error => console.log(error));
-//   },
+function onClickLibrary(e) {
+  e.preventDefault();
+  refs.header.classList.remove('is-hidden');
+  refs.header.classList.remove('banner-home');
+  refs.header.classList.add('banner-library');
 
-//   fetchFilm(id) {
-//     const url = `${this.baseUrl}${this.filmDetails}${id}?api_key=${this.apiKey}`;
+  e.target.classList.add('active');
+  refs.homeBtn.classList.remove('active');
 
-//     return fetch(url)
-//       .then(res => res.json())
-//       .then(data => {
-//         // this.incrementPage();
-//         return data;
-//       })
-//       .catch(error => console.log(error));
-//   },
+  refs.form.classList.add('is-hidden');
+  refs.headerBtns.classList.remove('is-hidden');
 
-//     get query() {
-//       return this.searchQuery;
-//     },
+  headerContainer.classList.add('library-header');
+  headerContainer.classList.remove('home-header');
+}
 
-//     set query(newQuery) {
-//       this.searchQuery = newQuery;
-//     },
+// refs.form.addEventListener('submit', onSearch);
 
-//   //   resetPage() {
-//   //     this.page = 1;
-//   //   },
+// function onSearch(e) {
+//   e.preventDefault();
+//   const form = e.currentTarget;
+//   const query = form.elements.query.value;
 
-//   //   incrementPage() {
-//   //     this.page += 1;
-//   //   },
-// };
+// }
+
+const popularFilms = '/trending/all/week';
+const apiKey = '42c4fa9c05708253e8c2f9a05f447e85';
 
 //!!!!Отрисовка модалки по шаблону!!!!
 
@@ -125,7 +102,37 @@ function renderList(data) {
 //     refs.movieCard.insertAdjacentHTML('beforeend', markup);
 //   }
 
-//Мщжно получить массив жанров
+//!!!!Отрисовка списка по шаблону!!!!
+
+// fetch(`
+// https://api.themoviedb.org/3${popularFilms}?api_key=${apiKey}`)
+//   .then(res => {
+//     return res.json();
+//   })
+//   .then(({ results }) => {
+//     return results.map(result => result.id);
+//   })
+//   .then(array => {
+//     array.length = 9;
+//     array.forEach(arr => {
+//       fetch(
+//         `https://api.themoviedb.org/3/movie/${arr}?api_key=42c4fa9c05708253e8c2f9a05f447e85`,
+//       )
+//         .then(res => {
+//           return res.json();
+//         })
+//         .then(data => {
+//           renderList(data);
+//         });
+//     });
+// })
+
+// function renderList(data) {
+//     const markup = listTpl(data);
+//     refs.moviesList.insertAdjacentHTML('beforeend', markup);
+// }
+
+//Мoжно получить массив жанров
 // fetch(
 //   'https://api.themoviedb.org/3/genre/movie/list?api_key=42c4fa9c05708253e8c2f9a05f447e85',
 // )

@@ -14,10 +14,10 @@
 
   <body>
     <header>
-      <div class="banner banner-home is-hidden">
+      <div class="banner banner-home">
         <div class="container home-header">
           <div class="menu">
-            <div class="logo">
+            <div class="logo" id="logo">
               <svg width="24px" height="24px" class="logo__icon">
                 <use href="./images/sprite.svg#icon-film"></use>
               </svg>
@@ -25,51 +25,31 @@
             </div>
 
             <ul class="navigation">
-              <!-- add class active on js -->
-              <li class="navigation__item active">home</li>
-              <li class="navigation__item">my library</li>
+              <li class="navigation__item active" id="home">home</li>
+              <li class="navigation__item" id="library">my library</li>
             </ul>
           </div>
 
-          <form class="form-search">
+          <form class="search-form">
             <input
-              class="form-search__input"
+              class="search-form__input"
               placeholder=" Поиск фильмов"
               id="input"
               name="query"
             />
-            <button type="submit" class="form-search__btn">
-              <svg class="form-search__input-icon" width="12px" height="12px">
+            <button type="submit" class="search-form__btn">
+              <svg class="search-form__input-icon" width="12px" height="12px">
                 <use href="./images/sprite.svg#icon-search"></use>
               </svg>
             </button>
           </form>
 
-          <p class="form-search--error">
+          <p class="search-form--error is is-hidden" id="query-error">
             Search result not successful. Enter the correct movie name and
             repeat
           </p>
-        </div>
-      </div>
 
-      <div class="banner banner-library is-hidden">
-        <div class="container library-header">
-          <div class="menu">
-            <div class="logo">
-              <svg width="24px" height="24px" class="logo__icon">
-                <use href="./images/sprite.svg#icon-film"></use>
-              </svg>
-              <h1 class="logo__title">Filmoteka</h1>
-            </div>
-
-            <ul class="navigation">
-              <!-- add class active on js -->
-              <li class="navigation__item">home</li>
-              <li class="navigation__item active">my library</li>
-            </ul>
-          </div>
-
-          <div class="header__content-button">
+          <div class="header__content-button is-hidden" id="header-buttons">
             <button class="btn btn-header" data-action="show-watched">
               Watched
             </button>
@@ -79,6 +59,26 @@
           </div>
         </div>
       </div>
+
+      <!-- <div class="banner banner-library is-hidden">
+        <div class="container library-header">
+          <div class="menu">
+            <div class="logo" id="logo">
+              <svg width="24px" height="24px" class="logo__icon">
+                <use href="./images/sprite.svg#icon-film"></use>
+              </svg>
+              <h1 class="logo__title">Filmoteka</h1>
+            </div>
+
+            <ul class="navigation">
+              <li class="navigation__item" id="home">home</li>
+              <li class="navigation__item active" id="library">my library</li>
+            </ul>
+          </div>
+
+          
+        </div>
+      </div> -->
     </header>
 
     <main>
@@ -91,7 +91,7 @@
       </div> -->
     </main>
 
-    <!-- <footer>
+    <footer>
       <div class="container footer">
         <p class="footer__text">© 2020 | All Rights Reserved |</p>
         <p class="footer__text">Developed with by</p>
@@ -100,6 +100,6 @@
         </svg>
         <p class="footer__text">GoIT Students</p>
       </div>
-    </footer> -->
+    </footer>
   </body>
 </html>
