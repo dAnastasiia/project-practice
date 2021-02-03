@@ -83,6 +83,10 @@
   &.name {
     color: $light-grey;
     margin-right: 40px;
+
+    @include for-size(tablet-landscape) {
+      margin-right: 83px;
+    }
   }
 
   &.name,
@@ -97,6 +101,7 @@
 
 .modal__content {
   &-decsription {
+    margin: 0;
     font-size: 12px;
     line-height: 1.67;
   }
