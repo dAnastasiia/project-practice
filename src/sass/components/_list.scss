@@ -92,10 +92,14 @@
   }
 }
 
-.vote-accent {
-  color: $white;
-  background: $accent;
+.vote {
+  background: $footer-color;
   border-radius: 5px;
   border: 5px solid inherit;
   padding: 1px 10px;
+}
+
+.vote-accent {
+  color: $white;
+  background: $accent;
 }

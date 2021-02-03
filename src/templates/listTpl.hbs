@@ -1,0 +1,11 @@
+{{!-- {{#each this}} --}}
+<li class="movie-card">
+    <img class="movie-card__poster" src="https://image.tmdb.org/t/p/original{{poster_path}}" alt="{{title}}" />
+    <h3 class="movie-card__title">{{title}}</h3>
+    <ul class="movie-card__info">
+        <li class="movie-card__genre">{{#genres}}{{name}} {{/genres}}</li>
+        <li class="movie-card__year">{{release_date}}</li>
+        <li class="movie-card__rate vote vote-accent">{{vote_average}}</li>
+    </ul>
+</li>
+{{!-- {{/each}} --}}
