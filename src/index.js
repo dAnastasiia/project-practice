@@ -21,18 +21,19 @@ const refs = {
   libraryBtn: document.getElementById('library'),
   queryErr: document.getElementById('query-error'),
 
-  movieCardYear: document.querySelector('.movie-card__year'),
-
   spinner: document.querySelector('.spinner'),
 
   addToWatched: document.querySelector('[data-action="add-watched"]'),
   addToQueue: document.querySelector('[data-action="add-queue"]'),
-
   watchedFilms: document.querySelector('[data-action="show-watched"]'),
   queueFilms: document.querySelector('[data-action="show-queue"]'),
+
+  movieCardYear: document.querySelector('.movie-card__year'),
+  movieGenres: document.querySelector('.genre'),
 };
 
-// console.log(refs.watchedFilms, refs.queueFilms);
+// console.dir(refs.watchedFilms);
+// console.dir(refs.queueFilms);
 // console.log(refs.addToWatched, refs.addToQueue);
 
 const spinner = {
@@ -60,7 +61,6 @@ refs.libraryBtn.addEventListener('click', onClickLibrary);
 
 const headerFunc = {
   showHome() {
-    refs.header.classList.remove('is-hidden');
     refs.header.classList.remove('banner-library');
     refs.header.classList.remove('banner-modal');
     refs.header.classList.add('banner-home');
@@ -80,7 +80,6 @@ const headerFunc = {
   },
 
   showLibrary() {
-    refs.header.classList.remove('is-hidden');
     refs.header.classList.remove('banner-home');
     refs.header.classList.remove('banner-modal');
     refs.header.classList.add('banner-library');
@@ -98,7 +97,9 @@ const headerFunc = {
     refs.moviesList.classList.add('is-hidden');
     refs.containerModal.classList.add('is-hidden');
   },
+};
 
+const modalFunc = {
   showModal() {
     refs.header.classList.remove('is-hidden');
     refs.header.classList.remove('banner-home');
@@ -117,17 +118,26 @@ const headerFunc = {
     refs.containerList.classList.add('is-hidden');
     refs.containerModal.classList.remove('is-hidden');
   },
+
+  // hideModal() {
+  //   refs.header.classList.remove('banner-modal');
+  //   refs.containerModal.classList.add('is-hidden');
+  //   refs.containerList.classList.remove('is-hidden');
+  // },
 };
 
 function onClickHome(e) {
   e.preventDefault();
   headerFunc.showHome();
+  clearListMovies();
+
   startPage();
 }
 
 function onClickLibrary(e) {
   e.preventDefault();
   headerFunc.showLibrary();
+  clearListMovies();
 
   spinner.show();
   // renderList(); //вставить данные - фильмы из библиотеки;
@@ -136,15 +146,25 @@ function onClickLibrary(e) {
 //конец: переключатель хедера библиотеки и дома
 
 //клик по лого, хоум и лайбрари в режиме открытой карточки
+// refs.containerModal.addEventListener('click', onClickModal);
 refs.logoBtn.addEventListener('click', modalOnClickLogoHome);
 refs.homeBtn.addEventListener('click', modalOnClickLogoHome);
 refs.libraryBtn.addEventListener('click', modalOnClickLibrary);
+
+// function onClickModal(e) {
+//   e.preventDefault();
+//   modalFunc.hideModal();
+//   clearModal();
+
+//   startPage();
+// }
 
 function modalOnClickLogoHome(e) {
   e.preventDefault();
   headerFunc.showHome();
   refs.containerModal.classList.add('is-hidden');
   refs.containerList.classList.remove('is-hidden');
+
   clearModal();
 
   startPage();
@@ -159,6 +179,7 @@ function modalOnClickLibrary(e) {
   headerFunc.showLibrary();
   refs.containerModal.classList.add('is-hidden');
   refs.containerList.classList.remove('is-hidden');
+
   clearModal();
 
   spinner.show();
@@ -172,9 +193,9 @@ refs.moviesList.addEventListener('click', onFilmClick);
 
 function onFilmClick(e) {
   e.preventDefault();
-  headerFunc.showModal();
+  modalFunc.showModal();
   const filmID = e.target.dataset.id;
-  spinner.show();
+  // spinner.show();
   clearListMovies();
 
   fetch(`${baseUrl}/movie/${filmID}?api_key=${apiKey}`)
@@ -182,7 +203,8 @@ function onFilmClick(e) {
       return res.json();
     })
     .then(data => {
-      spinner.hide();
+      //показать спиннер внутри грузящейся модалки
+      // spinner.hide();
       renderCard(data);
     });
 }
@@ -235,7 +257,8 @@ function onSearch(e) {
 //отрисовка популярных фильмов по шаблону
 function startPage() {
   spinner.show();
-  return fetch(`${baseUrl}${popularFilms}?api_key=${apiKey}`)
+
+  fetch(`${baseUrl}${popularFilms}?api_key=${apiKey}`)
     .then(res => {
       return res.json();
     })
@@ -270,6 +293,10 @@ function renderLibraryList(data) {
 
 // function cutYear() {
 //   return refs.movieCardYear.textContent.slice(0, 4);
+// }
+
+// function cutGenres() {
+//   return refs.movieCardYear.textContent.slice(0, 3);
 // }
 
 //Мoжно получить массив жанров
