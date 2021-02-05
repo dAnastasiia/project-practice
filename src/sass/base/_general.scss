@@ -73,8 +73,9 @@ img {
 
   padding: 20px 38px;
   border: 1px solid #ffffff;
-  // box-sizing: border-box;
   border-radius: 5px;
+
+  cursor: pointer;
 
   &:hover,
   &:active,

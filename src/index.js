@@ -24,7 +24,16 @@ const refs = {
   movieCardYear: document.querySelector('.movie-card__year'),
 
   spinner: document.querySelector('.spinner'),
+
+  addToWatched: document.querySelector('[data-action="add-watched"]'),
+  addToQueue: document.querySelector('[data-action="add-queue"]'),
+
+  watchedFilms: document.querySelector('[data-action="show-watched"]'),
+  queueFilms: document.querySelector('[data-action="show-queue"]'),
 };
+
+// console.log(refs.watchedFilms, refs.queueFilms);
+// console.log(refs.addToWatched, refs.addToQueue);
 
 const spinner = {
   show() {
@@ -42,7 +51,7 @@ const popularFilms = '/trending/all/week';
 const searchFilms = '/search/movie';
 const apiKey = '42c4fa9c05708253e8c2f9a05f447e85';
 
-// startPage();
+startPage();
 
 //переключатель хедера библиотеки и дома
 refs.logoBtn.addEventListener('click', onClickHome);
@@ -119,6 +128,10 @@ function onClickHome(e) {
 function onClickLibrary(e) {
   e.preventDefault();
   headerFunc.showLibrary();
+
+  spinner.show();
+  // renderList(); //вставить данные - фильмы из библиотеки;
+  // spinner.hide();
 }
 //конец: переключатель хедера библиотеки и дома
 
@@ -146,8 +159,9 @@ function modalOnClickLibrary(e) {
   headerFunc.showLibrary();
   refs.containerModal.classList.add('is-hidden');
   refs.containerList.classList.remove('is-hidden');
-  spinner.show();
   clearModal();
+
+  spinner.show();
   // renderList(); //вставить данные - фильмы из библиотеки;
   // spinner.hide();
 }

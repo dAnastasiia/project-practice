@@ -74,6 +74,8 @@ header {
 }
 
 .logo {
+  cursor: pointer;
+
   &__title {
     display: none;
 
@@ -98,6 +100,8 @@ header {
 }
 
 .navigation {
+  cursor: pointer;
+
   display: flex;
   text-transform: uppercase;
   font-size: 12px;
