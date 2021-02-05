@@ -52,3 +52,35 @@ function onClickLibrary(e) {
   e.preventDefault();
   headerFunc.showLibrary();
 }
+
+const headerFunc = {
+  showHome() {
+    refs.header.classList.remove('is-hidden');
+    refs.header.classList.remove('banner-library');
+    refs.header.classList.add('banner-home');
+
+    refs.homeBtn.classList.add('active');
+    refs.libraryBtn.classList.remove('active');
+
+    refs.form.classList.remove('is-hidden');
+    refs.headerBtns.classList.add('is-hidden');
+
+    refs.headerContainer.classList.add('home-header');
+    refs.headerContainer.classList.remove('library-header');
+  },
+
+  showLibrary() {
+    refs.header.classList.remove('is-hidden');
+    refs.header.classList.remove('banner-home');
+    refs.header.classList.add('banner-library');
+
+    refs.libraryBtn.classList.add('active');
+    refs.homeBtn.classList.remove('active');
+
+    refs.form.classList.add('is-hidden');
+    refs.headerBtns.classList.remove('is-hidden');
+
+    refs.headerContainer.classList.add('library-header');
+    refs.headerContainer.classList.remove('home-header');
+  },
+};

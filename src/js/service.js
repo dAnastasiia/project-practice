@@ -4,7 +4,7 @@ export default {
   popularFilms: '/trending/all/week',
   searchFilms: '/search/movie',
   searchQuery: '',
-  page: 1,
+  // page: 1,
 
   fetchPopular() {
     const url = `${this.baseUrl}${this.popularFilms}?api_key=${this.apiKey}`;
@@ -59,15 +59,15 @@ export default {
     this.searchQuery = newQuery;
   },
 
-  resetPage() {
-    this.page = 1;
-  },
+  // resetPage() {
+  //   this.page = 1;
+  // },
 
-  incrementPage() {
-    this.page += 1;
-  },
+  // incrementPage() {
+  //   this.page += 1;
+  // },
 
-  decrementPage() {
-    this.page -= 1;
-  },
+  // decrementPage() {
+  //   this.page -= 1;
+  // },
 };

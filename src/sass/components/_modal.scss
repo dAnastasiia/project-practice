@@ -31,11 +31,13 @@
   }
 }
 
-.modal {
+.modal-card {
   @include for-size(tablet-landscape) {
     display: flex;
   }
+}
 
+.modal {
   &__poster,
   &__content {
     @include for-size(tablet-landscape) {

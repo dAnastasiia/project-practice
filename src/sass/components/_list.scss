@@ -104,6 +104,16 @@
   background: $accent;
 }
 
+.page-link {
+  color: $accent;
+
+  &:focus {
+    color: $white;
+    background-color: $accent;
+    border: none;
+  }
+}
+
 .pagination {
   display: flex;
   justify-content: center;
@@ -114,12 +124,14 @@
   }
 }
 
-.page-link {
-  color: $accent;
+.spinner {
+  display: flex;
+  justify-content: space-between;
+  margin-right: 350px;
+  margin-left: 350px;
 
-  &:focus {
-    color: $white;
-    background-color: $accent;
-    border: none;
-  }
+  // bootstrap стили
+  // &-grow {
+  //   background-color: $accent;
+  // }
 }

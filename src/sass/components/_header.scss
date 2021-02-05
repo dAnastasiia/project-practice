@@ -36,6 +36,29 @@ header {
       background-image: url(../images/library-1024.jpg);
     }
   }
+
+  &-modal {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.56), rgba(0, 0, 0, 0.56)),
+      url(../images/modal-320.jpg);
+
+    @include for-size(tablet-landscape) {
+      max-width: 768px;
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(../images/modal-768.jpg);
+    }
+
+    @include for-size(desktop) {
+      max-width: 1024px;
+      background-image: linear-gradient(
+          rgba(0, 0, 0, 0.56),
+          rgba(0, 0, 0, 0.56)
+        ),
+        url(../images/modal-1024.jpg);
+    }
+  }
 }
 
 .home-header {
