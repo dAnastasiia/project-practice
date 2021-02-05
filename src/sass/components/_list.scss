@@ -127,11 +127,12 @@
 .spinner {
   display: flex;
   justify-content: space-between;
-  margin-right: 350px;
-  margin-left: 350px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 180px;
 
-  // bootstrap стили
-  // &-grow {
-  //   background-color: $accent;
-  // }
+  //bootstrap стили
+  &-grow {
+    background-color: $accent;
+  }
 }
