@@ -38,15 +38,25 @@ const API = new ApiService();
 startPage();
 
 function startPage() {
-  return API.fetch().then(data => {
-    spinner.show();
-    innerFetch(data);
-  });
+  return API.fetch()
+    .then(data => {
+      spinner.show();
+      innerListFetch(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
-function innerFetch(data) {
+function innerListFetch(data) {
   const windowWidth = window.innerWidth;
   const arrayFetches = cutArray(data, windowWidth);
+
+  if (arrayFetches.length === 0) {
+    spinner.hide();
+    refs.queryErr.classList.remove('is-hidden');
+    return;
+  }
 
   arrayFetches.forEach(arr => {
     fetch(arr)
@@ -129,6 +139,8 @@ const headerFunc = {
     refs.homeBtn.classList.add('active');
     refs.libraryBtn.classList.remove('active');
 
+    refs.queryErr.classList.add('is-hidden');
+
     refs.form.classList.remove('is-hidden');
     refs.headerBtns.classList.add('is-hidden');
 
@@ -148,6 +160,8 @@ const headerFunc = {
     refs.libraryBtn.classList.add('active');
     refs.homeBtn.classList.remove('active');
 
+    refs.queryErr.classList.add('is-hidden');
+
     refs.form.classList.add('is-hidden');
     refs.headerBtns.classList.remove('is-hidden');
 
@@ -162,9 +176,9 @@ const headerFunc = {
 
 const modalFunc = {
   showModal() {
-    refs.header.classList.remove('is-hidden');
-    refs.header.classList.remove('banner-home');
-    refs.header.classList.remove('banner-library');
+    // refs.header.classList.remove('is-hidden');
+    // refs.header.classList.remove('banner-home');
+    // refs.header.classList.remove('banner-library');
     refs.header.classList.add('banner-modal');
 
     refs.libraryBtn.classList.remove('active');
@@ -173,8 +187,8 @@ const modalFunc = {
     refs.form.classList.add('is-hidden');
     refs.headerBtns.classList.add('is-hidden');
 
-    refs.headerContainer.classList.add('home-header');
-    refs.headerContainer.classList.remove('library-header');
+    // refs.headerContainer.classList.add('home-header');
+    // refs.headerContainer.classList.remove('library-header');
 
     refs.containerList.classList.add('is-hidden');
     refs.containerModal.classList.remove('is-hidden');
@@ -227,6 +241,8 @@ function onClickModal(e) {
   e.preventDefault();
   modalFunc.hideModal();
   clearModal();
+  refs.homeBtn.classList.add('active');
+  startPage();
 }
 
 function clearModal() {
@@ -235,49 +251,19 @@ function clearModal() {
 //конец: close  modal
 
 // //клик по карточке - отрисовка фильма
-// refs.moviesList.addEventListener('click', onFilmClick);
+refs.moviesList.addEventListener('click', onFilmClick);
 
-// function onFilmClick(e) {
-//   e.preventDefault();
-//   modalFunc.showModal();
-//   const filmID = e.target.dataset.id;
-//   // spinner.show();
-//   clearListMovies();
+function onFilmClick(e) {
+  e.preventDefault();
+  clearHome();
+  clearLibrary();
+  modalFunc.showModal();
+  const filmID = e.target.dataset.id;
 
-//   fetch(`${baseUrl}/movie/${filmID}?api_key=${apiKey}`)
-//     .then(res => {
-//       return res.json();
-//     })
-//     .then(data => {
-//       //показать спиннер внутри грузящейся модалки
-//       // spinner.hide();
-//       renderCard(data);
-//     });
-// }
-
-// function onFilmClick(e) {
-//   e.preventDefault();
-//   modalFunc.showModal();
-//   const filmID = e.target.dataset.id;
-//   clearListMovies();
-
-//   return API.fetch(filmID)
-//     .then(res => {
-//       return res.json();
-//     })
-//     .then(data => {
-//       renderCard(data);
-//     });
-
-//   // fetch(`${baseUrl}/movie/${filmID}?api_key=${apiKey}`)
-//   //   .then(res => {
-//   //     return res.json();
-//   //   })
-//   //   .then(data => {
-
-//   //     renderCard(data);
-//   //   });
-// }
+  return API.fetchID(filmID).then(data => {
+    renderCard(data);
+  });
+}
 
 function renderCard(data) {
   const markup = cardTpl(data);
@@ -286,36 +272,25 @@ function renderCard(data) {
 // //конец: клик по карточке - отрисовка фильма
 
 // //отрисовка фильмов по запросу
-// refs.form.addEventListener('submit', onSearch);
+refs.form.addEventListener('submit', onSearch);
 
-// function onSearch(e) {
-//   e.preventDefault();
-//   const form = e.currentTarget;
-//   const query = form.elements.query.value;
-//   clearListMovies();
-//   spinner.show();
+function onSearch(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const query = form.elements.query.value;
+  clearHome();
+  clearLibrary();
+  spinner.show();
 
-//   fetch(`${baseUrl}${searchFilms}?api_key=${apiKey}&query=${query}`)
-//     .then(res => {
-//       return res.json();
-//     })
-//     .then(({ results }) => {
-//       return results.map(result => result.id);
-//     })
-//     .then(array => {
-//       array.length = 6;
-//       array.forEach(arr => {
-//         fetch(`${baseUrl}/movie/${arr}?api_key=${apiKey}`)
-//           .then(res => {
-//             return res.json();
-//           })
-//           .then(data => {
-//             spinner.hide();
-//             renderFilmsList(data);
-//           });
-//       });
-//     });
+  API.fetch(query)
+    .then(data => {
+      spinner.show();
+      innerListFetch(data);
+    })
+    .catch(err => {
+      console.log(err);
+    });
 
-//   form.reset();
-// }
+  form.reset();
+}
 // //конец: отрисовка фильмов по запросу

@@ -25,16 +25,31 @@ export default class ApiService {
       let moviesResponse = await response.json();
       let arrayMovieId = await moviesResponse.results.map(el => el.id);
 
+      this.totalPages = moviesResponse.total_pages;
+      this.totalResults = moviesResponse.total_results;
+
       this.createURL = arrayMovieId.map(
         id => `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}`,
       );
 
-      this.totalPages = moviesResponse.total_pages;
-      this.totalResults = moviesResponse.total_results;
-
       this.url = '';
 
       return this.createURL;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  async fetchID(id) {
+    this.url = `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}`;
+
+    try {
+      let response = await fetch(this.url);
+      let moviesResponse = await response.json();
+
+      this.url = '';
+
+      return moviesResponse;
     } catch (err) {
       console.log(err);
     }

@@ -4,6 +4,35 @@ img {
   border-radius: 20px;
 }
 
+.modal__content {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+
+  &-genres {
+    padding: 0;
+  }
+
+  &-decsription {
+    margin: 0;
+    font-size: 12px;
+    line-height: 1.67;
+  }
+
+  &-button {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+
+    @include for-size(tablet-landscape) {
+      margin-top: 20px;
+    }
+
+    @include for-size(desktop) {
+      justify-content: start;
+    }
+  }
+}
+
 .btn-modal {
   margin: 0;
   background-color: inherit;
@@ -14,6 +43,9 @@ img {
   &:hover,
   &:active,
   &:focus {
+    background-color: $accent;
+    border: 1px solid $accent;
+    outline: inherit;
     color: $white;
   }
 
@@ -82,47 +114,34 @@ img {
 }
 
 .modal__content-info {
-  display: flex;
+  padding: 0;
+  margin: 0;
+  width: 100%;
   font-size: 12px;
   line-height: 1.33;
 
   &.name {
     color: $light-grey;
-    margin-right: 40px;
-
-    @include for-size(tablet-landscape) {
-      margin-right: 83px;
-    }
   }
 
-  &.name,
-  &.value {
-    display: block;
+  &__item {
+    display: flex;
 
-    & > li:not(:last-child) {
+    &:not(:last-child) {
       margin-bottom: 10px;
+    }
+
+    & > li {
+      padding: 0;
+      margin: 0;
+    }
+
+    & > p {
+      margin: 0;
     }
   }
 }
 
-.modal__content {
-  &-decsription {
-    margin: 0;
-    font-size: 12px;
-    line-height: 1.67;
-  }
-
-  &-button {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 40px;
-
-    @include for-size(tablet-landscape) {
-      margin-top: 20px;
-    }
-
-    @include for-size(desktop) {
-      justify-content: start;
-    }
-  }
+.flex-basis {
+  flex-basis: 50%;
 }

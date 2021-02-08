@@ -1,12 +1,14 @@
 <div class="modal__poster">
-    <img class="poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}}" />
+    <img class="poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}"
+        onerror="this.onerror=null;this.src='https://ik.imagekit.io/s2fpg15d4rx/depositphotos_144011369-stock-photo-popcorn-and-movie-clapper-board_G9Nbh-ef0_9M.jpg';"
+        alt="{{title}}" />
 </div>
 
 <div class="modal__content">
     <h2 class="modal__content-title">{{title}}</h2>
 
     <div class="modal__content-info">
-        <ul class="modal__content-info name">
+        {{!-- <ul class="modal__content-info name">
             <li>Vote / Votes</li>
             <li>Popularity</li>
             <li>Original Title</li>
@@ -18,6 +20,30 @@
             <li>{{popularity}}</li>
             <li class="modal__content-title info">{{original_title}}</li>
             <li class="genre">{{#genres}}{{name}}{{#unless @last}}, {{/unless}}{{/genres}}</li>
+        </ul> --}}
+
+        <ul class="modal__content-info">
+            <li class="modal__content-info__item">
+                <p class="modal__content-info name flex-basis">Vote / Votes</p>
+                <p class="flex-basis"><span class="vote vote-accent">{{vote_average}}</span> / <span
+                        class="vote">{{vote_count}}</span></p>
+            </li>
+
+            <li class="modal__content-info__item">
+                <p class="modal__content-info name flex-basis">Popularity</p>
+                <p class="flex-basis">{{popularity}}</p>
+            </li>
+
+            <li class="modal__content-info__item">
+                <p class="modal__content-info name flex-basis">Original Title</p>
+                <p class="modal__content-title info flex-basis">{{original_title}}</p>
+            </li>
+
+
+            <li class="modal__content-info__item">
+                <p class="modal__content-info name flex-basis">Genre</p>
+                <p class="flex-basis">{{#genres}}{{name}}{{#unless @last}}, {{/unless}}{{/genres}}</p>
+            </li>
         </ul>
     </div>
 

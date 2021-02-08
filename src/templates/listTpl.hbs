@@ -1,6 +1,7 @@
 <li class="movie-card" data-id="{{id}}">
-    <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="{{title}}"
-        data-id="{{id}}" />
+    <img class="movie-card__poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}"
+        onerror="this.onerror=null;this.src='https://ik.imagekit.io/s2fpg15d4rx/depositphotos_144011369-stock-photo-popcorn-and-movie-clapper-board_G9Nbh-ef0_9M.jpg';"
+        alt="{{title}}" data-id="{{id}}" />
     <h3 class="movie-card__title" data-id="{{id}}">{{title}}</h3>
     <ul class="movie-card__info">
         <li class="movie-card__genre genre" data-id="{{id}}">{{#genres}}{{name}}{{#unless @last}},
