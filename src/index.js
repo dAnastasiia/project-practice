@@ -237,8 +237,15 @@ function onClickLibrary(e) {
 //close modal
 refs.containerModal.addEventListener('click', onClickModal);
 
+console.dir(refs.watchedFilms);
+
 function onClickModal(e) {
   e.preventDefault();
+
+  if (e.target.nodeName === 'BUTTON') {
+    return;
+  }
+
   modalFunc.hideModal();
   clearModal();
   refs.homeBtn.classList.add('active');
