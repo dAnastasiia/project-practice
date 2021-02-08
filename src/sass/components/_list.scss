@@ -12,8 +12,21 @@
   line-height: 1.33;
   letter-spacing: 0.06em;
 
+  padding-bottom: 10px;
+
+  &:hover,
+  &:active,
+  &:focus {
+    transform: scale(1.05);
+    border-radius: 10px;
+    box-shadow: 0px 1px 1px -1px rgba(212, 89, 18, 0.12),
+      0px 4px 4px -4px rgba(212, 89, 18, 0.12),
+      1px 6px 6px -6px rgba(212, 89, 18, 0.3);
+  }
+
   &__poster {
     width: 100%;
+    border-radius: 10px;
   }
 
   &__title {
