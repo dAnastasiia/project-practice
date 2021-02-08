@@ -1,5 +1,6 @@
 import './sass/main.scss';
-// import './js/header';
+
+import ApiService from './js/api';
 import cardTpl from './templates/cardTpl.hbs';
 import listTpl from './templates/listTpl.hbs';
 
@@ -32,9 +33,77 @@ const refs = {
   movieGenres: document.querySelector('.genre'),
 };
 
-// console.dir(refs.watchedFilms);
-// console.dir(refs.queueFilms);
-// console.log(refs.addToWatched, refs.addToQueue);
+const API = new ApiService();
+
+startPage();
+
+function startPage() {
+  return API.fetch().then(data => {
+    spinner.show();
+    innerFetch(data);
+  });
+}
+
+function innerFetch(data) {
+  const windowWidth = window.innerWidth;
+  const arrayFetches = cutArray(data, windowWidth);
+
+  arrayFetches.forEach(arr => {
+    fetch(arr)
+      .then(res => res.json())
+      .then(async data => {
+        let id = await data.id;
+        let genres = await data.genres;
+        let original_title = await data.original_title;
+        let overview = await data.overview;
+        let popularity = await data.popularity;
+        let poster_path = await data.poster_path;
+        let release_date = await data.release_date.slice(0, 4);
+        let title = await data.title;
+        let vote_average = await data.vote_average;
+        let vote_count = await data.vote_count;
+
+        renderFilmsList({
+          id,
+          genres,
+          original_title,
+          overview,
+          popularity,
+          poster_path,
+          release_date,
+          title,
+          vote_average,
+          vote_count,
+        });
+
+        spinner.hide();
+      })
+      .catch(err => console.log(err));
+  });
+}
+
+function cutArray(data, screenWidth) {
+  let cards = [];
+
+  if (screenWidth < 321) {
+    cards = data.slice(0, 4);
+  }
+
+  if (screenWidth > 320 && screenWidth < 1024) {
+    cards = data.slice(0, 8);
+  }
+
+  if (screenWidth > 1023) {
+    cards = data.slice(0, 9);
+  }
+
+  return cards;
+}
+
+function renderFilmsList(data) {
+  const markup = listTpl(data);
+  refs.moviesList.insertAdjacentHTML('beforeend', markup);
+}
 
 const spinner = {
   show() {
@@ -45,14 +114,6 @@ const spinner = {
     refs.spinner.classList.add('is-hidden');
   },
 };
-
-//переменные для запросов
-const baseUrl = 'https://api.themoviedb.org/3';
-const popularFilms = '/trending/all/week';
-const searchFilms = '/search/movie';
-const apiKey = '42c4fa9c05708253e8c2f9a05f447e85';
-
-startPage();
 
 //переключатель хедера библиотеки и дома
 refs.logoBtn.addEventListener('click', onClickHome);
@@ -119,17 +180,28 @@ const modalFunc = {
     refs.containerModal.classList.remove('is-hidden');
   },
 
-  // hideModal() {
-  //   refs.header.classList.remove('banner-modal');
-  //   refs.containerModal.classList.add('is-hidden');
-  //   refs.containerList.classList.remove('is-hidden');
-  // },
+  hideModal() {
+    refs.header.classList.remove('banner-modal');
+    refs.containerModal.classList.add('is-hidden');
+    refs.containerList.classList.remove('is-hidden');
+  },
 };
+
+function clearHome() {
+  refs.moviesList.innerHTML = '';
+}
+
+function clearLibrary() {
+  refs.libraryList.innerHTML = '';
+}
 
 function onClickHome(e) {
   e.preventDefault();
   headerFunc.showHome();
-  clearListMovies();
+  modalFunc.hideModal();
+
+  clearLibrary();
+  clearModal();
 
   startPage();
 }
@@ -137,7 +209,10 @@ function onClickHome(e) {
 function onClickLibrary(e) {
   e.preventDefault();
   headerFunc.showLibrary();
-  clearListMovies();
+  modalFunc.hideModal();
+
+  clearHome();
+  clearModal();
 
   spinner.show();
   // renderList(); //вставить данные - фильмы из библиотеки;
@@ -145,168 +220,102 @@ function onClickLibrary(e) {
 }
 //конец: переключатель хедера библиотеки и дома
 
-//клик по лого, хоум и лайбрари в режиме открытой карточки
-// refs.containerModal.addEventListener('click', onClickModal);
-refs.logoBtn.addEventListener('click', modalOnClickLogoHome);
-refs.homeBtn.addEventListener('click', modalOnClickLogoHome);
-refs.libraryBtn.addEventListener('click', modalOnClickLibrary);
+//close modal
+refs.containerModal.addEventListener('click', onClickModal);
 
-// function onClickModal(e) {
-//   e.preventDefault();
-//   modalFunc.hideModal();
-//   clearModal();
-
-//   startPage();
-// }
-
-function modalOnClickLogoHome(e) {
+function onClickModal(e) {
   e.preventDefault();
-  headerFunc.showHome();
-  refs.containerModal.classList.add('is-hidden');
-  refs.containerList.classList.remove('is-hidden');
-
+  modalFunc.hideModal();
   clearModal();
-
-  startPage();
 }
 
 function clearModal() {
   refs.movieCard.innerHTML = '';
 }
+//конец: close  modal
 
-function modalOnClickLibrary(e) {
-  e.preventDefault();
-  headerFunc.showLibrary();
-  refs.containerModal.classList.add('is-hidden');
-  refs.containerList.classList.remove('is-hidden');
+// //клик по карточке - отрисовка фильма
+// refs.moviesList.addEventListener('click', onFilmClick);
 
-  clearModal();
+// function onFilmClick(e) {
+//   e.preventDefault();
+//   modalFunc.showModal();
+//   const filmID = e.target.dataset.id;
+//   // spinner.show();
+//   clearListMovies();
 
-  spinner.show();
-  // renderList(); //вставить данные - фильмы из библиотеки;
-  // spinner.hide();
-}
-//конец: клик по лого, хоум и лайбрари в режиме открытой карточки
+//   fetch(`${baseUrl}/movie/${filmID}?api_key=${apiKey}`)
+//     .then(res => {
+//       return res.json();
+//     })
+//     .then(data => {
+//       //показать спиннер внутри грузящейся модалки
+//       // spinner.hide();
+//       renderCard(data);
+//     });
+// }
 
-//клик по карточке - отрисовка фильма
-refs.moviesList.addEventListener('click', onFilmClick);
+// function onFilmClick(e) {
+//   e.preventDefault();
+//   modalFunc.showModal();
+//   const filmID = e.target.dataset.id;
+//   clearListMovies();
 
-function onFilmClick(e) {
-  e.preventDefault();
-  modalFunc.showModal();
-  const filmID = e.target.dataset.id;
-  // spinner.show();
-  clearListMovies();
+//   return API.fetch(filmID)
+//     .then(res => {
+//       return res.json();
+//     })
+//     .then(data => {
+//       renderCard(data);
+//     });
 
-  fetch(`${baseUrl}/movie/${filmID}?api_key=${apiKey}`)
-    .then(res => {
-      return res.json();
-    })
-    .then(data => {
-      //показать спиннер внутри грузящейся модалки
-      // spinner.hide();
-      renderCard(data);
-    });
-}
+//   // fetch(`${baseUrl}/movie/${filmID}?api_key=${apiKey}`)
+//   //   .then(res => {
+//   //     return res.json();
+//   //   })
+//   //   .then(data => {
 
-function clearListMovies() {
-  refs.moviesList.innerHTML = '';
-}
+//   //     renderCard(data);
+//   //   });
+// }
 
 function renderCard(data) {
   const markup = cardTpl(data);
   refs.movieCard.insertAdjacentHTML('beforeend', markup);
 }
-//конец: клик по карточке - отрисовка фильма
+// //конец: клик по карточке - отрисовка фильма
 
-//отрисовка фильмов по запросу
-refs.form.addEventListener('submit', onSearch);
+// //отрисовка фильмов по запросу
+// refs.form.addEventListener('submit', onSearch);
 
-function onSearch(e) {
-  e.preventDefault();
-  const form = e.currentTarget;
-  const query = form.elements.query.value;
-  clearListMovies();
-  spinner.show();
+// function onSearch(e) {
+//   e.preventDefault();
+//   const form = e.currentTarget;
+//   const query = form.elements.query.value;
+//   clearListMovies();
+//   spinner.show();
 
-  fetch(`${baseUrl}${searchFilms}?api_key=${apiKey}&query=${query}`)
-    .then(res => {
-      return res.json();
-    })
-    .then(({ results }) => {
-      return results.map(result => result.id);
-    })
-    .then(array => {
-      array.length = 6;
-      array.forEach(arr => {
-        fetch(`${baseUrl}/movie/${arr}?api_key=${apiKey}`)
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            spinner.hide();
-            renderFilmsList(data);
-          });
-      });
-    });
+//   fetch(`${baseUrl}${searchFilms}?api_key=${apiKey}&query=${query}`)
+//     .then(res => {
+//       return res.json();
+//     })
+//     .then(({ results }) => {
+//       return results.map(result => result.id);
+//     })
+//     .then(array => {
+//       array.length = 6;
+//       array.forEach(arr => {
+//         fetch(`${baseUrl}/movie/${arr}?api_key=${apiKey}`)
+//           .then(res => {
+//             return res.json();
+//           })
+//           .then(data => {
+//             spinner.hide();
+//             renderFilmsList(data);
+//           });
+//       });
+//     });
 
-  form.reset();
-}
-//конец: отрисовка фильмов по запросу
-
-//отрисовка популярных фильмов по шаблону
-function startPage() {
-  spinner.show();
-
-  fetch(`${baseUrl}${popularFilms}?api_key=${apiKey}`)
-    .then(res => {
-      return res.json();
-    })
-    .then(({ results }) => {
-      return results.map(result => result.id);
-    })
-    .then(array => {
-      array.length = 6;
-      array.forEach(arr => {
-        fetch(`${baseUrl}/movie/${arr}?api_key=${apiKey}`)
-          .then(res => {
-            return res.json();
-          })
-          .then(data => {
-            spinner.hide();
-            renderFilmsList(data);
-          });
-      });
-    });
-}
-
-function renderFilmsList(data) {
-  const markup = listTpl(data);
-  refs.moviesList.insertAdjacentHTML('beforeend', markup);
-}
-
-function renderLibraryList(data) {
-  const markup = listTpl(data);
-  refs.libraryList.insertAdjacentHTML('beforeend', markup);
-}
-//конец: отрисовка популярных фильмов по шаблону
-
-// function cutYear() {
-//   return refs.movieCardYear.textContent.slice(0, 4);
+//   form.reset();
 // }
-
-// function cutGenres() {
-//   return refs.movieCardYear.textContent.slice(0, 3);
-// }
-
-//Мoжно получить массив жанров
-// fetch(
-//   '${baseUrl}genre/movie/list?api_key=${apiKey}',
-// )
-//   .then(res => {
-//     return res.json();
-//   })
-//   .then(data => {
-//     console.log(data);
-//   });
-//конец: получить массив жанров
+// //конец: отрисовка фильмов по запросу

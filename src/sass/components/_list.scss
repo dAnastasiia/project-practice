@@ -41,6 +41,14 @@
     color: $accent;
   }
 
+  &__genre {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    width: 50%;
+  }
+
   &__year {
     display: inline-flex;
   }
