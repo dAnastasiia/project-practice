@@ -26,7 +26,93 @@ const refs = {
 
   watchedFilms: document.querySelector('[data-action="show-watched"]'),
   queueFilms: document.querySelector('[data-action="show-queue"]'),
+  libraryMessage: document.querySelector('.library-message'),
 };
+
+refs.watchedFilms.addEventListener('click', onWatched);
+refs.queueFilms.addEventListener('click', onQueue);
+
+function onWatched(e) {
+  e.preventDefault();
+  e.target.classList.add('active');
+  refs.queueFilms.classList.remove('active');
+
+  clearLibrary();
+
+  const storage = JSON.parse(localStorage.getItem('watched')) || [];
+
+  if (storage.length === 0) {
+    spinner.hide();
+    refs.libraryMessage.classList.remove('is-hidden');
+    refs.libraryMessage.textContent =
+      'You haven`t had watched movies yet. Please, add something :)';
+    return;
+  }
+
+  innerLibraryFetch(storage);
+}
+
+function onQueue(e) {
+  e.preventDefault();
+  e.target.classList.add('active');
+  refs.watchedFilms.classList.remove('active');
+
+  clearLibrary();
+
+  const storage = JSON.parse(localStorage.getItem('queue')) || [];
+
+  if (storage.length === 0) {
+    spinner.hide();
+    refs.libraryMessage.classList.remove('is-hidden');
+    refs.libraryMessage.textContent =
+      'You haven`t had movies in the queue yet. Please, add something :)';
+    return;
+  }
+
+  innerLibraryFetch(storage);
+}
+
+function renderLibraryList(data) {
+  const markup = listTpl(data);
+  refs.libraryList.insertAdjacentHTML('beforeend', markup);
+}
+
+function innerLibraryFetch(data) {
+  const windowWidth = window.innerWidth;
+  const arrayFetches = cutArray(data, windowWidth);
+
+  arrayFetches.forEach(arr => {
+    API.fetchID(arr)
+      .then(async data => {
+        let id = await data.id;
+        let genres = await data.genres;
+        let original_title = await data.original_title;
+        let overview = await data.overview;
+        let popularity = await data.popularity;
+        let poster_path = await data.poster_path;
+        let release_date = await data.release_date.slice(0, 4);
+        let title = await data.title;
+        let vote_average = await data.vote_average;
+        let vote_count = await data.vote_count;
+
+        renderLibraryList({
+          id,
+          genres,
+          original_title,
+          overview,
+          popularity,
+          poster_path,
+          release_date,
+          title,
+          vote_average,
+          vote_count,
+        });
+
+        spinner.hide();
+      })
+      .catch(err => console.log(err));
+  });
+}
 
 const API = new ApiService();
 
@@ -170,9 +256,6 @@ const headerFunc = {
 
 const modalFunc = {
   showModal() {
-    // refs.header.classList.remove('is-hidden');
-    // refs.header.classList.remove('banner-home');
-    // refs.header.classList.remove('banner-library');
     refs.header.classList.add('banner-modal');
 
     refs.libraryBtn.classList.remove('active');
@@ -180,9 +263,6 @@ const modalFunc = {
 
     refs.form.classList.add('is-hidden');
     refs.headerBtns.classList.add('is-hidden');
-
-    // refs.headerContainer.classList.add('home-header');
-    // refs.headerContainer.classList.remove('library-header');
 
     refs.containerList.classList.add('is-hidden');
     refs.containerModal.classList.remove('is-hidden');
@@ -221,10 +301,6 @@ function onClickLibrary(e) {
 
   clearHome();
   clearModal();
-
-  spinner.show();
-  // renderList(); //вставить данные - фильмы из библиотеки;
-  // spinner.hide();
 }
 //конец: переключатель хедера библиотеки и дома
 
@@ -251,6 +327,7 @@ function clearModal() {
 
 // //клик по карточке - отрисовка фильма
 refs.moviesList.addEventListener('click', onFilmClick);
+refs.libraryList.addEventListener('click', onFilmClick);
 
 function onFilmClick(e) {
   e.preventDefault();
