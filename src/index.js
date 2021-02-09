@@ -237,8 +237,6 @@ function onClickLibrary(e) {
 //close modal
 refs.containerModal.addEventListener('click', onClickModal);
 
-console.dir(refs.watchedFilms);
-
 function onClickModal(e) {
   e.preventDefault();
 
@@ -248,7 +246,7 @@ function onClickModal(e) {
 
   modalFunc.hideModal();
   clearModal();
-  refs.homeBtn.classList.add('active');
+  headerFunc.showHome();
   startPage();
 }
 
@@ -276,6 +274,11 @@ function renderCard(data) {
   const markup = cardTpl(data);
   refs.movieCard.insertAdjacentHTML('beforeend', markup);
 }
+
+refs.addToWatched.addEventListener('click', e => {
+  e.preventDefault();
+  console.log(e.currentTarget);
+});
 // //конец: клик по карточке - отрисовка фильма
 
 // //отрисовка фильмов по запросу
