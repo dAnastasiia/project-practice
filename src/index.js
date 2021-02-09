@@ -26,7 +26,9 @@ const refs = {
 
   watchedFilms: document.querySelector('[data-action="show-watched"]'),
   queueFilms: document.querySelector('[data-action="show-queue"]'),
-  libraryMessage: document.querySelector('.library-message'),
+
+  libraryMessage: document.querySelector('.library-message-container'),
+  libraryMessageText: document.querySelector('.library-message'),
 };
 
 refs.watchedFilms.addEventListener('click', onWatched);
@@ -45,7 +47,7 @@ function onWatched(e) {
   if (storage.length === 0) {
     spinner.hide();
     refs.libraryMessage.classList.remove('is-hidden');
-    refs.libraryMessage.textContent =
+    refs.libraryMessageText.textContent =
       'You haven`t had watched movies yet. Please, add something :)';
     return;
   }
@@ -66,7 +68,7 @@ function onQueue(e) {
   if (storage.length === 0) {
     spinner.hide();
     refs.libraryMessage.classList.remove('is-hidden');
-    refs.libraryMessage.textContent =
+    refs.libraryMessageText.textContent =
       'You haven`t had movies in the queue yet. Please, add something :)';
     return;
   }
