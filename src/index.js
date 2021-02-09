@@ -183,6 +183,7 @@ function innerListFetch(data) {
         });
 
         spinner.hide();
+        refs.queryErr.classList.add('is-hidden');
       })
       .catch(err => console.log(err));
   });
@@ -461,6 +462,8 @@ function onSearch(e) {
       console.log(err);
     });
 
+  modalFunc.hideModal();
+  clearModal();
   form.reset();
 }
 // //конец: отрисовка фильмов по запросу
