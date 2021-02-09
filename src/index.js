@@ -259,9 +259,12 @@ function onFilmClick(e) {
   modalFunc.showModal();
   const filmID = e.target.dataset.id;
 
-  API.fetchID(filmID).then(data => {
+  modal(filmID);
+}
+
+function modal(id) {
+  API.fetchID(id).then(data => {
     renderCard(data);
-    // addRemoveLS();
 
     const storageWatch = JSON.parse(localStorage.getItem('watched')) || [];
     const storageQueue = JSON.parse(localStorage.getItem('queue')) || [];
@@ -271,9 +274,8 @@ function onFilmClick(e) {
       addToQueue: document.querySelector('[data-action="add-queue"]'),
     };
 
-    // modalWatchBtnStyle(storageWatch, data.id, modalBtn.addToWatched);
-
-    // modalQueueBtnStyle(storageQueue, data.id, modalBtn.addToQueue);
+    modalWatchBtnStyle(storageWatch, id, modalBtn.addToWatched);
+    modalQueueBtnStyle(storageQueue, id, modalBtn.addToQueue);
 
     modalBtn.addToWatched.addEventListener('click', e => {
       e.preventDefault();
@@ -322,25 +324,25 @@ function renderCard(data) {
   refs.movieCard.insertAdjacentHTML('beforeend', markup);
 }
 
-// function modalWatchBtnStyle(storage, id, btn) {
-//   if (storage.includes(id)) {
-//     btn.classList.add('active');
-//     btn.textContent = 'remove watched';
-//   } else {
-//     btn.classList.remove('active');
-//     btn.textContent = 'add to watched';
-//   }
-// }
+function modalWatchBtnStyle(storage, id, btn) {
+  if (storage.includes(id)) {
+    btn.classList.add('active');
+    btn.textContent = 'remove watched';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = 'add to watched';
+  }
+}
 
-// function modalQueueBtnStyle(storage, id, btn) {
-//   if (storage.includes(id)) {
-//     btn.classList.add('active');
-//     btn.textContent = 'remove queue';
-//   } else {
-//     btn.classList.remove('active');
-//     btn.textContent = 'add to queue';
-//   }
-// }
+function modalQueueBtnStyle(storage, id, btn) {
+  if (storage.includes(id)) {
+    btn.classList.add('active');
+    btn.textContent = 'remove queue';
+  } else {
+    btn.classList.remove('active');
+    btn.textContent = 'add to queue';
+  }
+}
 
 // //конец: клик по карточке - отрисовка фильма
 
