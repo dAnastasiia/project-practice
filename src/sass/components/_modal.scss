@@ -40,14 +40,6 @@ img {
   padding: 20px 10px;
   border: 1px solid $black;
 
-  // &:hover,
-  // &:focus {
-  //   background-color: $accent;
-  //   border: 1px solid $accent;
-  //   outline: inherit;
-  //   color: $white;
-  // }
-
   &:first-child {
     @include for-size(desktop) {
       margin-right: 15px;
@@ -56,12 +48,10 @@ img {
 }
 
 .container-modal {
-  // padding-top: 20px;
   padding-bottom: 40px;
 
   @include for-size(tablet-landscape) {
     display: flex;
-    // padding-top: 60px;
     padding-bottom: 60px;
   }
 }

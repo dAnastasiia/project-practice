@@ -74,16 +74,9 @@ img {
   padding: 20px 38px;
   border: 1px solid #ffffff;
   border-radius: 5px;
+  outline: none;
 
   cursor: pointer;
-
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: $accent;
-    border: 1px solid $accent;
-    outline: inherit;
-  }
 
   &.active {
     color: $white;
