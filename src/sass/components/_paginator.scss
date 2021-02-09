@@ -1,0 +1,30 @@
+.paginator-page {
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  border-radius: 10px;
+
+  width: 40px;
+  height: 40px;
+  background-color: $footer-color;
+  color: $black;
+  text-align: center;
+
+  margin-right: 10px;
+
+  &.next {
+    margin: 0;
+  }
+
+  //   &.current {
+  //     background-color: $accent;
+  //     color: $white;
+  //   }
+
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: $accent;
+    color: $white;
+  }
+}

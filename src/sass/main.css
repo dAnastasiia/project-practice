@@ -923,6 +923,27 @@ footer {
   margin-top: 20px;
 }
 
+.paginator-page {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  background-color: #f7f7f7;
+  color: #000000;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.paginator-page.next {
+  margin: 0;
+}
+
+.paginator-page:hover, .paginator-page:focus, .paginator-page:active {
+  background-color: #ff6b01;
+  color: #ffffff;
+}
+
 img {
   border-radius: 20px;
 }

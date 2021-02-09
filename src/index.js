@@ -23,6 +23,7 @@ const refs = {
   queryErr: document.getElementById('query-error'),
 
   spinner: document.querySelector('.spinner'),
+  paginator: document.querySelector('.pagination'),
 
   watchedFilms: document.querySelector('[data-action="show-watched"]'),
   queueFilms: document.querySelector('[data-action="show-queue"]'),
@@ -337,10 +338,6 @@ function onClickModal(e) {
 
   modalFunc.hideModal();
   clearModal();
-
-  if (refs.header.classList.includes('banner-library')) {
-    location.reload();
-  }
 }
 
 function clearModal() {
@@ -467,3 +464,12 @@ function onSearch(e) {
   form.reset();
 }
 // //конец: отрисовка фильмов по запросу
+
+var pagination = require('pagination');
+var paginator = new pagination.SearchPaginator({
+  prelink: '/',
+  current: 1,
+  rowsPerPage: 200,
+  totalResult: 10020,
+});
+// console.dir(API);
