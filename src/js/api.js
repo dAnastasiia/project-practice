@@ -28,13 +28,9 @@ export default class ApiService {
       this.totalPages = moviesResponse.total_pages;
       this.totalResults = moviesResponse.total_results;
 
-      this.createURL = arrayMovieId.map(
-        id => `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}`,
-      );
-
       this.url = '';
 
-      return this.createURL;
+      return arrayMovieId;
     } catch (err) {
       console.log(err);
     }

@@ -84,6 +84,13 @@ img {
     border: 1px solid $accent;
     outline: inherit;
   }
+
+  &.active {
+    color: $white;
+    background-color: $accent;
+    border: 1px solid $accent;
+    outline: inherit;
+  }
 }
 
 .is-hidden {

@@ -24,13 +24,8 @@ const refs = {
 
   spinner: document.querySelector('.spinner'),
 
-  addToWatched: document.querySelector('[data-action="add-watched"]'),
-  addToQueue: document.querySelector('[data-action="add-queue"]'),
   watchedFilms: document.querySelector('[data-action="show-watched"]'),
   queueFilms: document.querySelector('[data-action="show-queue"]'),
-
-  movieCardYear: document.querySelector('.movie-card__year'),
-  movieGenres: document.querySelector('.genre'),
 };
 
 const API = new ApiService();
@@ -59,8 +54,7 @@ function innerListFetch(data) {
   }
 
   arrayFetches.forEach(arr => {
-    fetch(arr)
-      .then(res => res.json())
+    API.fetchID(arr)
       .then(async data => {
         let id = await data.id;
         let genres = await data.genres;
@@ -265,8 +259,9 @@ function onFilmClick(e) {
   modalFunc.showModal();
   const filmID = e.target.dataset.id;
 
-  return API.fetchID(filmID).then(data => {
+  API.fetchID(filmID).then(data => {
     renderCard(data);
+    addToLS();
   });
 }
 
@@ -275,10 +270,40 @@ function renderCard(data) {
   refs.movieCard.insertAdjacentHTML('beforeend', markup);
 }
 
-refs.addToWatched.addEventListener('click', e => {
-  e.preventDefault();
-  console.log(e.currentTarget);
-});
+function addToLS() {
+  const storageWatch = localStorage.getItem('watched');
+  const storageQueue = localStorage.getItem('queue');
+
+  const modalBtn = {
+    addToWatched: document.querySelector('[data-action="add-watched"]'),
+    addToQueue: document.querySelector('[data-action="add-queue"]'),
+  };
+
+  modalBtn.addToWatched.addEventListener('click', e => {
+    e.preventDefault();
+    const id = e.target.dataset.movieid;
+    let array = JSON.parse(storageWatch) || [];
+
+    e.target.classList.add('active');
+    e.target.textContent = 'remove watched';
+
+    array.push(id);
+    localStorage.setItem('watched', JSON.stringify(array));
+  });
+
+  modalBtn.addToQueue.addEventListener('click', e => {
+    e.preventDefault();
+    const id = e.target.dataset.movieid;
+    let array = JSON.parse(storageQueue) || [];
+
+    e.target.classList.add('active');
+    e.target.textContent = 'remove queue';
+
+    array.push(id);
+    localStorage.setItem('queue', JSON.stringify(array));
+  });
+}
+
 // //конец: клик по карточке - отрисовка фильма
 
 // //отрисовка фильмов по запросу
@@ -294,7 +319,6 @@ function onSearch(e) {
 
   API.fetch(query)
     .then(data => {
-      spinner.show();
       innerListFetch(data);
     })
     .catch(err => {
