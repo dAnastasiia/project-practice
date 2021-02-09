@@ -36,6 +36,7 @@ function onWatched(e) {
   e.preventDefault();
   e.target.classList.add('active');
   refs.queueFilms.classList.remove('active');
+  refs.libraryMessage.classList.add('is-hidden');
 
   clearLibrary();
 
@@ -56,6 +57,7 @@ function onQueue(e) {
   e.preventDefault();
   e.target.classList.add('active');
   refs.watchedFilms.classList.remove('active');
+  refs.libraryMessage.classList.add('is-hidden');
 
   clearLibrary();
 
@@ -230,6 +232,11 @@ const headerFunc = {
     refs.moviesList.classList.remove('is-hidden');
     refs.libraryList.classList.add('is-hidden');
     refs.containerModal.classList.add('is-hidden');
+
+    refs.watchedFilms.classList.remove('active');
+    refs.queueFilms.classList.remove('active');
+
+    refs.libraryMessage.classList.add('is-hidden');
   },
 
   showLibrary() {
@@ -251,6 +258,11 @@ const headerFunc = {
     refs.libraryList.classList.remove('is-hidden');
     refs.moviesList.classList.add('is-hidden');
     refs.containerModal.classList.add('is-hidden');
+
+    refs.watchedFilms.classList.remove('active');
+    refs.queueFilms.classList.remove('active');
+
+    refs.libraryMessage.classList.add('is-hidden');
   },
 };
 
