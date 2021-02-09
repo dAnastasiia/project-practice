@@ -1,5 +1,11 @@
 header {
-  background-color: $black;
+  background: rgb(2, 0, 36);
+  background: radial-gradient(
+    circle,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(0, 0, 0, 1) 84%,
+    rgba(97, 45, 45, 1) 100%
+  );
 }
 
 .banner {

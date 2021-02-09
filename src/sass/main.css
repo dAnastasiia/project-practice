@@ -425,7 +425,8 @@ img {
 }
 
 header {
-  background-color: #000000;
+  background: #020024;
+  background: radial-gradient(circle, #020024 0%, black 84%, #612d2d 100%);
 }
 
 .banner {
