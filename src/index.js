@@ -261,7 +261,59 @@ function onFilmClick(e) {
 
   API.fetchID(filmID).then(data => {
     renderCard(data);
-    addToLS();
+    // addRemoveLS();
+
+    const storageWatch = JSON.parse(localStorage.getItem('watched')) || [];
+    const storageQueue = JSON.parse(localStorage.getItem('queue')) || [];
+
+    const modalBtn = {
+      addToWatched: document.querySelector('[data-action="add-watched"]'),
+      addToQueue: document.querySelector('[data-action="add-queue"]'),
+    };
+
+    // modalWatchBtnStyle(storageWatch, data.id, modalBtn.addToWatched);
+
+    // modalQueueBtnStyle(storageQueue, data.id, modalBtn.addToQueue);
+
+    modalBtn.addToWatched.addEventListener('click', e => {
+      e.preventDefault();
+      const id = e.target.dataset.movieid;
+
+      if (storageWatch.includes(id)) {
+        let idx = storageWatch.indexOf(id);
+        storageWatch.splice(idx, 1);
+
+        e.target.classList.remove('active');
+        e.target.textContent = 'add to watched';
+      } else {
+        storageWatch.push(id);
+
+        e.target.classList.add('active');
+        e.target.textContent = 'remove watched';
+      }
+
+      localStorage.setItem('watched', JSON.stringify(storageWatch));
+    });
+
+    modalBtn.addToQueue.addEventListener('click', e => {
+      e.preventDefault();
+      const id = e.target.dataset.movieid;
+
+      if (storageQueue.includes(id)) {
+        let idx = storageQueue.indexOf(id);
+        storageQueue.splice(idx, 1);
+
+        e.target.classList.remove('active');
+        e.target.textContent = 'add to queue';
+      } else {
+        storageQueue.push(id);
+
+        e.target.classList.add('active');
+        e.target.textContent = 'remove queue';
+      }
+
+      localStorage.setItem('queue', JSON.stringify(storageQueue));
+    });
   });
 }
 
@@ -270,39 +322,25 @@ function renderCard(data) {
   refs.movieCard.insertAdjacentHTML('beforeend', markup);
 }
 
-function addToLS() {
-  const storageWatch = localStorage.getItem('watched');
-  const storageQueue = localStorage.getItem('queue');
+// function modalWatchBtnStyle(storage, id, btn) {
+//   if (storage.includes(id)) {
+//     btn.classList.add('active');
+//     btn.textContent = 'remove watched';
+//   } else {
+//     btn.classList.remove('active');
+//     btn.textContent = 'add to watched';
+//   }
+// }
 
-  const modalBtn = {
-    addToWatched: document.querySelector('[data-action="add-watched"]'),
-    addToQueue: document.querySelector('[data-action="add-queue"]'),
-  };
-
-  modalBtn.addToWatched.addEventListener('click', e => {
-    e.preventDefault();
-    const id = e.target.dataset.movieid;
-    let array = JSON.parse(storageWatch) || [];
-
-    e.target.classList.add('active');
-    e.target.textContent = 'remove watched';
-
-    array.push(id);
-    localStorage.setItem('watched', JSON.stringify(array));
-  });
-
-  modalBtn.addToQueue.addEventListener('click', e => {
-    e.preventDefault();
-    const id = e.target.dataset.movieid;
-    let array = JSON.parse(storageQueue) || [];
-
-    e.target.classList.add('active');
-    e.target.textContent = 'remove queue';
-
-    array.push(id);
-    localStorage.setItem('queue', JSON.stringify(array));
-  });
-}
+// function modalQueueBtnStyle(storage, id, btn) {
+//   if (storage.includes(id)) {
+//     btn.classList.add('active');
+//     btn.textContent = 'remove queue';
+//   } else {
+//     btn.classList.remove('active');
+//     btn.textContent = 'add to queue';
+//   }
+// }
 
 // //конец: клик по карточке - отрисовка фильма
 

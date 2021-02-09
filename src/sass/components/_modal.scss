@@ -40,14 +40,13 @@ img {
   padding: 20px 10px;
   border: 1px solid $black;
 
-  &:hover,
-  &:active,
-  &:focus {
-    background-color: $accent;
-    border: 1px solid $accent;
-    outline: inherit;
-    color: $white;
-  }
+  // &:hover,
+  // &:focus {
+  //   background-color: $accent;
+  //   border: 1px solid $accent;
+  //   outline: inherit;
+  //   color: $white;
+  // }
 
   &:first-child {
     @include for-size(desktop) {
