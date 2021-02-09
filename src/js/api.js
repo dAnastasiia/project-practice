@@ -59,6 +59,10 @@ export default class ApiService {
     this.searchQuery = newQuery;
   }
 
+  get results() {
+    return this.totalResults;
+  }
+
   get pageNum() {
     return this.page;
   }

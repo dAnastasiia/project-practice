@@ -36,7 +36,15 @@ refs.queueFilms.addEventListener('click', onQueue);
 
 function onWatched(e) {
   e.preventDefault();
+  modalFunc.hideModal();
+  clearModal();
+
   e.target.classList.add('active');
+
+  firstLibraryPage();
+}
+
+function firstLibraryPage() {
   refs.queueFilms.classList.remove('active');
   refs.libraryMessage.classList.add('is-hidden');
 
@@ -57,6 +65,9 @@ function onWatched(e) {
 
 function onQueue(e) {
   e.preventDefault();
+  modalFunc.hideModal();
+  clearModal();
+
   e.target.classList.add('active');
   refs.watchedFilms.classList.remove('active');
   refs.libraryMessage.classList.add('is-hidden');
@@ -271,13 +282,6 @@ const headerFunc = {
 const modalFunc = {
   showModal() {
     refs.header.classList.add('banner-modal');
-
-    refs.libraryBtn.classList.remove('active');
-    refs.homeBtn.classList.remove('active');
-
-    refs.form.classList.add('is-hidden');
-    refs.headerBtns.classList.add('is-hidden');
-
     refs.containerList.classList.add('is-hidden');
     refs.containerModal.classList.remove('is-hidden');
   },
@@ -315,6 +319,9 @@ function onClickLibrary(e) {
 
   clearHome();
   clearModal();
+
+  refs.watchedFilms.classList.add('active');
+  firstLibraryPage();
 }
 //конец: переключатель хедера библиотеки и дома
 
@@ -330,8 +337,10 @@ function onClickModal(e) {
 
   modalFunc.hideModal();
   clearModal();
-  headerFunc.showHome();
-  startPage();
+
+  if (refs.header.classList.includes('banner-library')) {
+    location.reload();
+  }
 }
 
 function clearModal() {
@@ -345,15 +354,14 @@ refs.libraryList.addEventListener('click', onFilmClick);
 
 function onFilmClick(e) {
   e.preventDefault();
-  clearHome();
-  clearLibrary();
+
   modalFunc.showModal();
   const filmID = e.target.dataset.id;
 
-  modal(filmID);
+  modalRender(filmID);
 }
 
-function modal(id) {
+function modalRender(id) {
   API.fetchID(id).then(data => {
     renderCard(data);
 
