@@ -471,12 +471,3 @@ function onSearch(e) {
   form.reset();
 }
 // //конец: отрисовка фильмов по запросу
-
-var pagination = require('pagination');
-var paginator = new pagination.SearchPaginator({
-  prelink: '/',
-  current: 1,
-  rowsPerPage: 200,
-  totalResult: 10020,
-});
-// console.dir(API);
