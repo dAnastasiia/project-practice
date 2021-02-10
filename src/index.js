@@ -56,6 +56,7 @@ function firstLibraryPage() {
   if (storage.length === 0) {
     spinner.hide();
     refs.libraryMessage.classList.remove('is-hidden');
+    refs.paginator.classList.add('is-hidden');
     refs.libraryMessageText.textContent =
       'You haven`t had watched movies yet. Please, add something :)';
     return;
@@ -80,6 +81,7 @@ function onQueue(e) {
   if (storage.length === 0) {
     spinner.hide();
     refs.libraryMessage.classList.remove('is-hidden');
+    refs.paginator.classList.add('is-hidden');
     refs.libraryMessageText.textContent =
       'You haven`t had movies in the queue yet. Please, add something :)';
     return;
@@ -125,6 +127,7 @@ function innerLibraryFetch(data) {
         });
 
         spinner.hide();
+        refs.paginator.classList.remove('is-hidden');
       })
       .catch(err => console.log(err));
   });
@@ -152,6 +155,7 @@ function innerListFetch(data) {
   if (arrayFetches.length === 0) {
     spinner.hide();
     refs.queryErr.classList.remove('is-hidden');
+    refs.paginator.classList.add('is-hidden');
     return;
   }
 
