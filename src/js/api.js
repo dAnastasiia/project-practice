@@ -15,9 +15,9 @@ export default class ApiService {
 
   async fetch(searchQuery) {
     if (searchQuery && searchQuery !== '') {
-      this.url = `${this.baseUrl}${this.searchMovies}?api_key=${this.apiKey}&query=${searchQuery}`;
+      this.url = `${this.baseUrl}${this.searchMovies}?api_key=${this.apiKey}&query=${searchQuery}&page=${this.page}`;
     } else {
-      this.url = `${this.baseUrl}${this.popularMovies}?api_key=${this.apiKey}`;
+      this.url = `${this.baseUrl}${this.popularMovies}?api_key=${this.apiKey}&page=${this.page}`;
     }
 
     try {
@@ -28,7 +28,12 @@ export default class ApiService {
       this.totalPages = moviesResponse.total_pages;
       this.totalResults = moviesResponse.total_results;
 
+      this.page = moviesResponse.page;
+
       this.url = '';
+
+      // console.log(moviesResponse);
+      // console.log(arrayMovieId);
 
       return arrayMovieId;
     } catch (err) {
