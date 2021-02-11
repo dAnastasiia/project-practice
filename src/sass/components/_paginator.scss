@@ -1,4 +1,4 @@
-.paginator-page {
+.pagination-page {
   padding-top: 10px;
   padding-bottom: 10px;
 
@@ -10,21 +10,18 @@
   color: $black;
   text-align: center;
 
-  margin-right: 10px;
-
-  &.next {
-    margin: 0;
+  &:not(:last-child) {
+    margin-right: 10px;
   }
 
-  //   &.current {
-  //     background-color: $accent;
-  //     color: $white;
-  //   }
-
   &:hover,
-  &:focus,
-  &:active {
+  &.active {
     background-color: $accent;
     color: $white;
   }
+}
+
+.pagination-container {
+  margin: 0;
+  padding: 0;
 }

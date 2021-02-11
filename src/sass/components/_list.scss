@@ -30,6 +30,10 @@
   }
 
   &__title {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
     margin: 10px 0 5px;
     text-transform: uppercase;
     color: $black;
