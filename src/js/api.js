@@ -32,9 +32,6 @@ export default class ApiService {
 
       this.url = '';
 
-      // console.log(moviesResponse);
-      // console.log(arrayMovieId);
-
       return arrayMovieId;
     } catch (err) {
       console.log(err);
