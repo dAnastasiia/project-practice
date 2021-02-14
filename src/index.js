@@ -148,6 +148,126 @@ function startPage() {
     });
 }
 
+//============trial pagination================
+
+// const container = document.querySelector('.pagination-container');
+// // const paginator = document.querySelector('.pagination');
+// const windowWidth = window.innerWidth;
+// let liArr = [];
+
+// refs.paginator.innerHTML = '';
+
+// function startPage() {
+//   return API.fetch()
+//     .then(data => {
+//       let pagesOnWindow;
+
+//       if (windowWidth < 321) {
+//         pagesOnWindow = 4;
+//       }
+
+//       if (windowWidth > 320 && windowWidth < 1024) {
+//         pagesOnWindow = 8;
+//       }
+
+//       if (windowWidth > 1023) {
+//         pagesOnWindow = 9;
+//       }
+
+//       //let pages = Math.ceil((API.totalPages * 20) / pagesOnWindow);
+
+//       let pages = Math.ceil(data.length / pagesOnWindow);
+
+//       for (let i = 1; i <= pages; i += 1) {
+//         let li = document.createElement('li');
+//         li.classList.add('pagination-page');
+//         li.innerHTML = i;
+
+//         liArr.push(li);
+
+//         refs.paginator.appendChild(li);
+//       }
+
+//       let pageNum = liArr[0].innerHTML;
+
+//       liArr[0].classList.add('active');
+
+//       let start = (pageNum - 1) * pagesOnWindow;
+//       let end = start + pagesOnWindow;
+//       let newArray = data.slice(start, end);
+
+//       spinner.show();
+//       innerListFetch(newArray);
+
+//       refs.paginator.addEventListener('click', onClick);
+
+//       function onClick(e) {
+//         e.preventDefault();
+//         let pageNum = e.target.innerText;
+
+//         liArr.forEach(el => {
+//           el.classList.remove('active');
+//         });
+
+//         e.target.classList.add('active');
+
+//         let start = (pageNum - 1) * pagesOnWindow;
+//         let end = start + pagesOnWindow;
+//         let newArray = data.slice(start, end);
+
+//         clearHome();
+
+//         innerListFetch(newArray);
+//       }
+//     })
+//     .catch(err => {
+//       console.log(err);
+//     });
+// }
+
+// function innerListFetch(data) {
+//   // if (data.length === 0) {
+//   //   spinner.hide();
+//   //   refs.queryErr.classList.remove('is-hidden');
+//   //   refs.paginator.classList.add('is-hidden');
+//   //   return;
+//   // }
+
+//   data.forEach(arr => {
+//     API.fetchID(arr)
+//       .then(async data => {
+//         let id = await data.id;
+//         let genres = await data.genres;
+//         let original_title = await data.original_title;
+//         let overview = await data.overview;
+//         let popularity = await data.popularity;
+//         let poster_path = await data.poster_path;
+//         let release_date = await data.release_date.slice(0, 4);
+//         let title = await data.title;
+//         let vote_average = await data.vote_average;
+//         let vote_count = await data.vote_count;
+
+//         renderFilmsList({
+//           id,
+//           genres,
+//           original_title,
+//           overview,
+//           popularity,
+//           poster_path,
+//           release_date,
+//           title,
+//           vote_average,
+//           vote_count,
+//         });
+
+//         spinner.hide();
+//         refs.queryErr.classList.add('is-hidden');
+//       })
+//       .catch(err => console.log(err));
+//   });
+// }
+//============trial pagination================
+
 function innerListFetch(data) {
   const windowWidth = window.innerWidth;
   const arrayFetches = cutArray(data, windowWidth);
