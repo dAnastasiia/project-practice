@@ -38,6 +38,56 @@ export default class ApiService {
     }
   }
 
+  //-------возвращаем не массив ид
+  // async fetch(searchQuery) {
+  //   if (searchQuery && searchQuery !== '') {
+  //     this.url = `${this.baseUrl}${this.searchMovies}?api_key=${this.apiKey}&query=${searchQuery}&page=${this.page}`;
+  //   } else {
+  //     this.url = `${this.baseUrl}${this.popularMovies}?api_key=${this.apiKey}&page=${this.page}`;
+  //   }
+
+  //   try {
+  //     let response = await fetch(this.url);
+  //     let moviesResponse = await response.json();
+  //     let arrayMovieId = await moviesResponse.results.map(el => el.id);
+
+  //     this.totalPages = moviesResponse.total_pages;
+  //     this.totalResults = moviesResponse.total_results;
+
+  //     this.page = moviesResponse.page;
+
+  //     this.url = '';
+
+  //     return arrayMovieId;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
+  // ---------задаем страницу
+  // async fetch(searchQuery, page) {
+  //   if (searchQuery && searchQuery !== '') {
+  //     this.url = `${this.baseUrl}${this.searchMovies}?api_key=${this.apiKey}&query=${searchQuery}&page=${page}`;
+  //   } else {
+  //     this.url = `${this.baseUrl}${this.popularMovies}?api_key=${this.apiKey}&page=${page}`;
+  //   }
+
+  //   try {
+  //     let response = await fetch(this.url);
+  //     let moviesResponse = await response.json();
+  //     let arrayMovieId = await moviesResponse.results.map(el => el.id);
+
+  //     this.totalPages = moviesResponse.total_pages;
+  //     this.totalResults = moviesResponse.total_results;
+
+  //     this.url = '';
+
+  //     return arrayMovieId;
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // }
+
   async fetchID(id) {
     this.url = `${this.baseUrl}/movie/${id}?api_key=${this.apiKey}`;
 
